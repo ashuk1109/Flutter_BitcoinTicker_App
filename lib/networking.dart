@@ -1,19 +1,56 @@
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, must_be_immutable
+
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 const String apiKey = 'E9E9575C-9102-4EB8-BC61-7B481A19DF9A';
-//String url =
-//  'https://rest.coinapi.io/v1/exchangerate/BTC/USD?apikey=$apiKey';
+const List<String> coinTypes = ['BTC', 'ETH', 'LTC'];
 
-class NetworkHelper {
-  Future<String> getData(String coinType, String unit) async {
-    //print(unit);
-    String url =
-        'https://rest.coinapi.io/v1/exchangerate/$coinType/$unit?apikey=$apiKey';
-    http.Response data = await http.get(Uri.parse(url));
-    //print(jsonDecode(data.body)['rate']);
-    //return jsonDecode(data.body);
-    int temp = jsonDecode(data.body)['rate'].toInt();
-    return temp.toString();
+class NetworkHelper extends StatefulWidget {
+  //const Spinner({Key? key}) : super(key: key);
+
+  String value;
+  NetworkHelper(this.value);
+  @override
+  _NetworkHelperState createState() => _NetworkHelperState();
+}
+
+class _NetworkHelperState extends State<NetworkHelper> {
+  void initState() {
+    getData();
+  }
+
+  void getData() async {
+    List<String> exchangeData = ['', '', ''];
+    for (int i = 0; i < coinTypes.length; i++) {
+      String url =
+          'https://rest.coinapi.io/v1/exchangerate/${coinTypes[i]}/${widget.value}?apikey=$apiKey';
+      http.Response data = await http.get(Uri.parse(url));
+      //--> just to check that the url is working fine with the api
+      //print(data.statusCode);
+      //print(coinTypes[i] + jsonDecode(data.body)['rate'].toString());
+      int temp = jsonDecode(data.body)['rate'].toInt();
+      exchangeData[i] = temp.toString();
+    }
+
+    Navigator.pop(context, exchangeData);
+    //return exchangeData;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('🤑 Coin Ticker'),
+      ),
+      body: Center(
+        child: SpinKitFadingCircle(
+          color: Colors.blue,
+          size: 50,
+        ),
+      ),
+    );
   }
 }

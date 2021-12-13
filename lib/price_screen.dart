@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+//import 'package:flutter_bitcointicker_app/loading_screen.dart';
+
 import 'coin_data.dart';
 import 'networking.dart';
 
@@ -12,7 +14,8 @@ class PriceScreen extends StatefulWidget {
 class _PriceScreenState extends State<PriceScreen> {
   String currency = 'USD';
   String rateBTC = '?', rateLTC = '?', rateETH = '?';
-  NetworkHelper networkHelper = NetworkHelper();
+  dynamic rates = ['?', '?', '?'];
+
   //rate = await networkHelper.getData(currency);
 
   // void getData(String currency) async {
@@ -35,10 +38,16 @@ class _PriceScreenState extends State<PriceScreen> {
     return dropDownItems;
   }
 
-  void getExchangeData(String value) async {
-    rateBTC = await networkHelper.getData('BTC', value);
-    rateETH = await networkHelper.getData('ETH', value);
-    rateLTC = await networkHelper.getData('LTC', value);
+  Future getExchangeData(String value) async {
+    //NetworkHelper networkHelper = NetworkHelper(value);
+    rates = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return NetworkHelper(value);
+        },
+      ),
+    ) as List<String>;
     setState(() {
       currency = value;
     });
@@ -65,7 +74,7 @@ class _PriceScreenState extends State<PriceScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
                 child: Text(
-                  '1 BTC = $rateBTC $currency',
+                  '1 BTC = ${rates[0].toString()} $currency',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20.0,
@@ -86,7 +95,7 @@ class _PriceScreenState extends State<PriceScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
                 child: Text(
-                  '1 ETH = $rateETH $currency',
+                  '1 ETH = ${rates[1].toString()} $currency',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20.0,
@@ -107,7 +116,7 @@ class _PriceScreenState extends State<PriceScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
                 child: Text(
-                  '1 LTC = $rateLTC $currency',
+                  '1 LTC = ${rates[2].toString()} $currency',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20.0,
@@ -132,7 +141,10 @@ class _PriceScreenState extends State<PriceScreen> {
               value: currency,
               items: getDropDownItems(),
               onChanged: (value) {
-                getExchangeData(value!);
+                setState(() {
+                  currency = value!;
+                });
+                getExchangeData(currency);
               },
             ),
           ),
