@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-const String apiKey = 'E9E9575C-9102-4EB8-BC61-7B481A19DF9A';
+const String apiKey = 'D5A14DCA-186D-4AC6-896F-329CB1CE50B5';
 const List<String> coinTypes = ['BTC', 'ETH', 'LTC'];
 
 class NetworkHelper extends StatefulWidget {

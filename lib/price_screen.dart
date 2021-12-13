@@ -66,7 +66,7 @@ class _PriceScreenState extends State<PriceScreen> {
           Padding(
             padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
             child: Card(
-              color: Colors.lightBlueAccent,
+              color: Color(0xFF62727b),
               elevation: 5.0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -87,7 +87,7 @@ class _PriceScreenState extends State<PriceScreen> {
           Padding(
             padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
             child: Card(
-              color: Colors.lightBlueAccent,
+              color: Color(0xFF62727b),
               elevation: 5.0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -108,7 +108,7 @@ class _PriceScreenState extends State<PriceScreen> {
           Padding(
             padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
             child: Card(
-              color: Colors.lightBlueAccent,
+              color: Color(0xFF62727b),
               elevation: 5.0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -133,19 +133,36 @@ class _PriceScreenState extends State<PriceScreen> {
             ),
           ),
           Container(
+            margin: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(40),
+              ),
+              color: Colors.blueGrey,
+            ),
             height: 150.0,
             alignment: Alignment.center,
             padding: EdgeInsets.only(bottom: 30.0),
-            color: Colors.lightBlue,
-            child: DropdownButton<String>(
-              value: currency,
-              items: getDropDownItems(),
-              onChanged: (value) {
-                setState(() {
-                  currency = value!;
-                });
-                getExchangeData(currency);
-              },
+            child: Theme(
+              data: Theme.of(context).copyWith(
+                canvasColor: Color(0xFF263238),
+              ),
+              child: DropdownButton<String>(
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+                icon: Icon(Icons.arrow_drop_down_circle_rounded),
+                iconEnabledColor: Color(0xFF37474F),
+                elevation: 10,
+                value: currency,
+                items: getDropDownItems(),
+                onChanged: (value) {
+                  setState(() {
+                    currency = value!;
+                  });
+                  getExchangeData(currency);
+                },
+              ),
             ),
           ),
         ],
