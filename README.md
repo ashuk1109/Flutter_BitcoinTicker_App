@@ -33,7 +33,8 @@ Once you have Flutter Setup on your machine, go ahead and clone this repository 
 
 ## Note
 1. Am using the free trial of Coinapi for the ApiKey which allows only about 100 api fetch requests, so make sure if you clone the repo, you make a free account on coinapi and get your own apiKey and replace it with mine from "/lib/networking.dart"
-<br>[Replace the ApiKey in this line.](https://github.com/ashuk1109/Flutter_BitcoinTicker_App/blob/main/lib/networking.dart#L8)
+<br>[Replace the ApiKey in this line.](https://github.com/ashuk1109/Flutter_BitcoinTicker_App/blob/main/lib/networking.dart#L8)<br>
+*If you dont do this, you will get stuck on the spinner page for eternity as the app wont be able to fetch the desired info from the server!!*
 
 2. This Project was essentially a Challenge/Assignment for one of the courses on Udemy, I have just customised it to my liking, you can do the same as per yours.
 <br> [Course Link :](https://www.udemy.com/course/flutter-bootcamp-with-dart/) (Refer the section - Boss Level Challenge 3 for the Assignment info)
@@ -41,7 +42,7 @@ Once you have Flutter Setup on your machine, go ahead and clone this repository 
 3. Feel free to post any issues (if found) or PR (Pull Requests) in this repository.
 
 <br><br>
-For any help ragarding getting started with Flutter, view the
+For any help regarding getting started with Flutter, view the
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
